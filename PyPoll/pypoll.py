@@ -54,3 +54,20 @@ for j in range(len(candidate_names)):
 print(f"-------------------------")
 print(f"Winner: {candidate_names[candidate_votes.index(max(candidate_votes))]}")
 print(f"-------------------------")
+
+# Tuple for storing election results
+elect_results = zip(candidate_names, candidate_votes, candidate_pcts)
+
+# Open a file to output results to
+csvoutputpath = os.path.join('..', 'Resources', 'election_results.csv')
+
+with open(csvoutputpath, "w", newline='') as datafile:
+    writer = csv.writer(datafile)
+
+    # Write the header row
+    writer.writerow(["Candidate", 
+                     "Votes Received", 
+                     "Percentage of Votes"])
+    
+    # Write the results
+    writer.writerows(elect_results)
