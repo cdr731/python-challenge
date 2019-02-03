@@ -1,25 +1,25 @@
 # Unit 3 | Assignment - Py Me Up, Charlie
 # PyBank by Christopher Reutz
 
-# Import the path and CSV reading modules and open the CSV file
+# Import the path and CSV reading modules
 import os
 import csv
-csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
 
-# Declare variables
-totmonths = 0
-totamount = 0
-avgchange = 0
-currentavg = 0
-grtincrease = 0
-grtincmonth = ""
-grtdecrease = 0
-grtdecmonth = ""
-lastrowamt = 0
+# Open the CVS file that contains the data
+csvinputpath = os.path.join('..', 'Resources', 'budget_data.csv')
 
-with open(csvpath, newline='') as csvfile:
+with open(csvinputpath, newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
+    
+    # Skip first row which is the header row
     header = next(csvreader)
+
+    # Initialize variables
+    totmonths = 0
+    totamount = 0
+    avgchange = 0
+    grtincrease = 0
+    grtdecrease = 0    
 
     # Loop through file
     for row in csvreader:
@@ -69,3 +69,19 @@ with open(csvpath, newline='') as csvfile:
     print(f"Average Change: ${round(avgchange, 2)}")
     print(f"Greatest Increase in Profits: {grtincmonth} (${grtincrease})")
     print(f"Greatest Decrease in Profits: {grtdecmonth} (${grtdecrease})")
+
+# Open a file to output results to
+csvoutputpath = os.path.join('..', 'Resources', 'budget_results.csv')
+
+with open(csvoutputpath, "w", newline='') as datafile:
+    writer = csv.writer(datafile, delimiter=',')
+
+    # Write the header row
+    writer.writerow(["Total Months", "Total Amount", "Average Change",
+                    "Greatest Increase Date", "Greatest Increase Amount",
+                    "Greatest Decrease Date", "Greatest Decrease Amount"])
+
+    # Write the results
+    writer.writerow([totmonths, totamount, round(avgchange,2),
+                    grtincmonth, grtincrease,
+                    grtdecmonth, grtdecrease])
