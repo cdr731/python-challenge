@@ -5,6 +5,13 @@
 import os
 import csv
 
+# Initialize variables
+totmonths = 0
+totamount = 0
+avgchange = 0
+grtincrease = 0
+grtdecrease = 0 
+
 # Open the CVS file that contains the data
 csvinputpath = os.path.join('..', 'Resources', 'budget_data.csv')
 
@@ -13,13 +20,6 @@ with open(csvinputpath, newline='') as csvfile:
     
     # Skip first row which is the header row
     header = next(csvreader)
-
-    # Initialize variables
-    totmonths = 0
-    totamount = 0
-    avgchange = 0
-    grtincrease = 0
-    grtdecrease = 0    
 
     # Loop through file
     for row in csvreader:
@@ -55,20 +55,21 @@ with open(csvinputpath, newline='') as csvfile:
         # for the next row
         lastrowamt = int(row[1])
 
-    # End of main loop
+    # End of main loop through data
+# End of reading in data
 
-    # Calculate the average of he changes over the entire period
-    # Note that it is the total months less 1
-    avgchange /= (totmonths - 1)
+# Calculate the average of he changes over the entire period
+# Note that it is the total months less 1
+avgchange /= (totmonths - 1)
 
-    # Print results
-    print(f"Financial Analysis")
-    print(f"----------------------------")
-    print(f"Total Months: {totmonths}")
-    print(f"Total: ${totamount}")
-    print(f"Average Change: ${round(avgchange, 2)}")
-    print(f"Greatest Increase in Profits: {grtincmonth} (${grtincrease})")
-    print(f"Greatest Decrease in Profits: {grtdecmonth} (${grtdecrease})")
+# Print results
+print(f"Financial Analysis")
+print(f"----------------------------")
+print(f"Total Months: {totmonths}")
+print(f"Total: ${totamount}")
+print(f"Average Change: ${round(avgchange, 2)}")
+print(f"Greatest Increase in Profits: {grtincmonth} (${grtincrease})")
+print(f"Greatest Decrease in Profits: {grtdecmonth} (${grtdecrease})")
 
 # Open a file to output results to
 csvoutputpath = os.path.join('..', 'Resources', 'budget_results.csv')
